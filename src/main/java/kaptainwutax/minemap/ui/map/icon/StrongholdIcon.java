@@ -4,9 +4,9 @@ import kaptainwutax.featureutils.Feature;
 import kaptainwutax.featureutils.structure.Stronghold;
 import kaptainwutax.minemap.ui.map.MapContext;
 import kaptainwutax.minemap.ui.map.fragment.Fragment;
-import kaptainwutax.seedutils.lcg.rand.JRand;
-import kaptainwutax.seedutils.mc.pos.BPos;
-import kaptainwutax.seedutils.mc.pos.CPos;
+import kaptainwutax.mcutils.util.pos.BPos;
+import kaptainwutax.mcutils.util.pos.CPos;
+import kaptainwutax.seedutils.rand.JRand;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ import kaptainwutax.minemap.feature.OWBastionRemnant;
 import kaptainwutax.minemap.feature.OWFortress;
 import kaptainwutax.minemap.feature.SpawnPoint;
 import kaptainwutax.minemap.ui.map.fragment.FeatureFactory;
-import kaptainwutax.seedutils.mc.MCVersion;
+import kaptainwutax.mcutils.version.MCVersion;
 
 import java.util.HashMap;
 import java.util.Map;
