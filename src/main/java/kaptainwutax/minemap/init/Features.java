@@ -4,9 +4,7 @@ import kaptainwutax.featureutils.Feature;
 import kaptainwutax.featureutils.decorator.EndGateway;
 import kaptainwutax.featureutils.misc.SlimeChunk;
 import kaptainwutax.featureutils.structure.*;
-import kaptainwutax.minemap.feature.OWBastionRemnant;
-import kaptainwutax.minemap.feature.OWFortress;
-import kaptainwutax.minemap.feature.SpawnPoint;
+import kaptainwutax.minemap.feature.*;
 import kaptainwutax.minemap.ui.map.fragment.FeatureFactory;
 import kaptainwutax.mcutils.version.MCVersion;
 
@@ -31,7 +29,8 @@ public class Features {
         register(NetherFossil.class, NetherFossil::new);
         register(OceanRuin.class, OceanRuin::new);
         register(PillagerOutpost.class, PillagerOutpost::new);
-        register(RuinedPortal.class, RuinedPortal::new);
+        register(OWRuinedPortal.class, OWRuinedPortal::new);
+        register(NERuinedPortal.class, NERuinedPortal::new);
         register(Shipwreck.class, Shipwreck::new);
         register(SwampHut.class, SwampHut::new);
         register(Village.class, Village::new);
