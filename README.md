@@ -23,6 +23,8 @@
     </a>
 </p>
 
+This tool has been moved to https://github.com/hube12/Minemap since I wanted to get out of the fork since KaptainWutax didn't had the time to maintain his.
+
 To download it head to the [Releases section](https://github.com/hube12/MineMap/releases/latest).
 
 This is a program to replace the old amidst with a non Minecraft based one (meaning you can run it without Minecraft
