@@ -3,8 +3,8 @@ package kaptainwutax.minemap.ui.map.fragment;
 import kaptainwutax.minemap.init.Configs;
 import kaptainwutax.minemap.ui.DrawInfo;
 import kaptainwutax.minemap.ui.map.MapPanel;
-import kaptainwutax.seedutils.mc.pos.BPos;
-import kaptainwutax.seedutils.mc.pos.RPos;
+import kaptainwutax.mcutils.util.pos.BPos;
+import kaptainwutax.mcutils.util.pos.RPos;
 import wearblackallday.threading.ThreadPool;
 
 import javax.swing.*;

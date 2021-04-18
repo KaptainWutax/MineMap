@@ -1,9 +1,9 @@
 package kaptainwutax.minemap.ui;
 
+import kaptainwutax.mcutils.rand.seed.WorldSeed;
 import kaptainwutax.minemap.MineMap;
 import kaptainwutax.minemap.init.Configs;
 import kaptainwutax.minemap.ui.map.MapPanel;
-import kaptainwutax.seedutils.mc.seed.WorldSeed;
 import wearblackallday.swing.Events;
 import wearblackallday.swing.components.MenuBuilder;
 

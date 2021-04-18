@@ -1,10 +1,10 @@
 package kaptainwutax.minemap.ui.map;
 
 import kaptainwutax.mathutils.util.Mth;
+import kaptainwutax.mcutils.util.math.Vec3i;
 import kaptainwutax.minemap.MineMap;
 import kaptainwutax.minemap.init.Configs;
-import kaptainwutax.seedutils.mc.pos.BPos;
-import kaptainwutax.seedutils.util.math.Vec3i;
+import kaptainwutax.mcutils.util.pos.BPos;
 import wearblackallday.swing.Events;
 import wearblackallday.swing.SwingUtils;
 

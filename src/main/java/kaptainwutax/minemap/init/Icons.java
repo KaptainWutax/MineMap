@@ -4,9 +4,7 @@ import kaptainwutax.featureutils.Feature;
 import kaptainwutax.featureutils.decorator.EndGateway;
 import kaptainwutax.featureutils.misc.SlimeChunk;
 import kaptainwutax.featureutils.structure.*;
-import kaptainwutax.minemap.feature.OWBastionRemnant;
-import kaptainwutax.minemap.feature.OWFortress;
-import kaptainwutax.minemap.feature.SpawnPoint;
+import kaptainwutax.minemap.feature.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -32,7 +30,8 @@ public class Icons {
         register(NetherFossil.class, Structure.getName(NetherFossil.class));
         register(OceanRuin.class, Structure.getName(OceanRuin.class));
         register(PillagerOutpost.class, Structure.getName(PillagerOutpost.class));
-        register(RuinedPortal.class, Structure.getName(RuinedPortal.class));
+        register(OWRuinedPortal.class, Structure.getName(RuinedPortal.class));
+        register(NERuinedPortal.class, Structure.getName(RuinedPortal.class));
         register(Shipwreck.class, Structure.getName(Shipwreck.class));
         register(SwampHut.class, Structure.getName(SwampHut.class));
         register(Village.class, Structure.getName(Village.class));
