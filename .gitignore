@@ -7,5 +7,15 @@ screenshots/
 .project
 .settings/org.eclipse.buildship.core.prefs
 bin/
-
 .DS_Store
+src/main/java/kaptainwutax/minemap/Test.java
+
+error.log
+
+src/main/resources/icon/items/
+
+src/test/java/Test2.java
+
+*.log
+
+*.jar

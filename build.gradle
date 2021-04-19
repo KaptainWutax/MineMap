@@ -4,20 +4,79 @@ plugins {
     id "com.github.johnrengelman.shadow" version "5.0.0"
 }
 
-sourceCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 repositories {
     mavenCentral()
+    jcenter()
+
     maven {
         url "https://jitpack.io"
     }
+    maven {
+        url "https://maven.latticg.com/"
+    }
+    maven{
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-Xlint:deprecation','-Xlint:unchecked']
+    options.fork=true
+}
+
+run{
+    args "--no-update"
 }
 
 dependencies {
-    implementation 'com.github.KaptainWutax:SEED:1c966a327ec286906f92f9e849d46a9b2408d3ad'
+    implementation('com.github.KaptainWutax:MathUtils:5531c4a87b0f1bb85d1dab2bdd18ce375400626a') { transitive = false }
+    implementation('com.github.KaptainWutax:SeedUtils:b6a383113ce5d8d09a59e91b28ff064fb97c0709') { transitive = false }
+    implementation('com.github.KaptainWutax:NoiseUtils:bb71e46efe0f8d930bac8af94fecf250b70e0c23') { transitive = false }
+
+    implementation('com.github.KaptainWutax:MCUtils:cb9c78e4e37e12dca0ddaefc3a7f3053dfbd237b') { transitive = false }
+
+    implementation('com.github.KaptainWutax:BiomeUtils:f27f6e029b85c8a32371ae62292c6ac7fb121674') {transitive = false}
+    implementation('com.github.KaptainWutax:TerrainUtils:5b477c80a266b1fb2241f11a56538fb33b04a478') {transitive = false}
+    implementation('com.github.KaptainWutax:FeatureUtils:c37afd12ec9127fe7d20477e2b1be2de1f515ef0') {transitive = false}
+
+    implementation('com.github.hube12:ChunkRandomReversal:76bc51ef8b05a6366b8080ed8d071ba5d3ba5e82') {transitive = false}
+    implementation('com.seedfinding:latticg:1.05')
+
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation "com.formdev:flatlaf:0.38"
-    implementation 'com.github.wearblackallday:JavaUtils:6341f4093b9adb3de1342bb96bcf5b9d10e7058c'
+    implementation "org.swinglabs.swingx:swingx-core:1.6.5-1"
+    implementation "com.intellij:forms_rt:7.0.3"
+
+    implementation "org.joml:joml:${jomlVersion}"
+    // LWJGL core
+    implementation "org.lwjgl:lwjgl:${lwjglVersion}"
+    // LWJGL natives
+    runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
+    runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
+
+    // OPENGL
+    implementation "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
+    // OPENGL NATIVES
+    runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux"
+    runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos"
+
+    // GLFW (natives?)
+//    implementation "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
+    // STB (natives?)
+//    implementation "org.lwjgl:lwjgl-stb:${lwjglVersion}"
+
+    // VULKAN only (no need of natives
+    implementation "org.lwjgl:lwjgl-vulkan:${lwjglVersion}"
+    // Our awt simplification
+    //https://oss.sonatype.org/content/repositories/snapshots/org/lwjglx/lwjgl3-awt/0.1.9-SNAPSHOT/lwjgl3-awt-0.1.9-20210121.080449-2.jar
+    implementation ("org.lwjglx:lwjgl3-awt:${lwjglAwtVersion}")
 }
 
 application {
@@ -25,8 +84,5 @@ application {
 }
 
 shadowJar {
-    archiveFileName = "MineMap.jar"
-}
-artifacts {
-    archives shadowJar
+    archiveFileName = "MineMap-${minemap_version}.jar"
 }

@@ -5,13 +5,13 @@ import kaptainwutax.biomeutils.source.BiomeSource;
 import kaptainwutax.featureutils.Feature;
 import kaptainwutax.minemap.MineMap;
 import kaptainwutax.minemap.init.Configs;
+import kaptainwutax.minemap.listener.Events;
 import kaptainwutax.minemap.ui.component.BiomeEntry;
+import kaptainwutax.minemap.ui.component.Dropdown;
 import kaptainwutax.minemap.ui.component.FeatureEntry;
 import kaptainwutax.minemap.ui.map.MapPanel;
 import kaptainwutax.minemap.ui.map.MapSettings;
-import wearblackallday.swing.Events;
-import wearblackallday.swing.SwingUtils;
-import wearblackallday.swing.components.SelectionBox;
+import org.jdesktop.swingx.VerticalLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,15 +24,14 @@ public class SettingsSidebar extends JPanel {
 
     private final MapPanel map;
     private final MapSettings settings;
-
-    public SelectionBox<Integer> layerDropdown;
     private final JPanel toggles = new JPanel();
+    public Dropdown<Integer> layerDropdown;
     public JButton closeButton;
+    public boolean isHiddenForSize = false;
 
     public SettingsSidebar(MapPanel map) {
         this.map = map;
         this.settings = this.map.getContext().getSettings();
-
         this.addLayerDropdown();
         this.addScrollPane();
         this.addGlobalToggles();
@@ -41,7 +40,7 @@ public class SettingsSidebar extends JPanel {
         this.addHideShowButtons();
         this.addSetResetButtons();
         this.addCloseButton();
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new VerticalLayout());
     }
 
     private void addScrollPane() {
@@ -49,22 +48,29 @@ public class SettingsSidebar extends JPanel {
         JScrollPane scrollPane = new JScrollPane(this.toggles);
         scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
-//        scrollPane.addHierarchyBoundsListener(new HierarchyBoundsAdapter() {
-//            @Override
-//            public void ancestorResized(HierarchyEvent e) {
-//                scrollPane.setPreferredSize(new Dimension(300, MineMap.INSTANCE.getHeight() - 210));
-//                scrollPane.setSize(new Dimension(300, MineMap.INSTANCE.getHeight() - 210));
-//                scrollPane.repaint();
-//            }
-//        });
+        scrollPane.addHierarchyBoundsListener(new HierarchyBoundsAdapter() {
+            @Override
+            public void ancestorResized(HierarchyEvent e) {
+                MapPanel map = MineMap.INSTANCE.worldTabs.getSelectedMapPanel();
+                int height;
+                if (map == null) {
+                    height = MineMap.INSTANCE.getHeight() - 210;
+                } else {
+                    height = map.getHeight() - 150;
+                }
+                scrollPane.setPreferredSize(new Dimension(300, height));
+                scrollPane.setSize(new Dimension(300, height));
+                scrollPane.repaint();
+            }
+        });
 
         this.add(scrollPane);
     }
 
     private void addLayerDropdown() {
         BiomeSource source = this.map.getContext().getBiomeSource();
-        this.layerDropdown = new SelectionBox<>(i -> "[" + i + "] " + source.getLayer(i).getClass().getSimpleName() + " " + source.getLayer(i).getScale() + ":1", IntStream.range(0, source.getLayerCount()).boxed());
-        this.layerDropdown.selectIfContains(this.map.getContext().getLayerId());
+        this.layerDropdown = new Dropdown<>(i -> "[" + i + "] " + source.getLayer(i).getClass().getSimpleName() + " " + source.getLayer(i).getScale() + ":1", IntStream.range(0, source.getLayerCount()).boxed());
+        this.layerDropdown.selectIfPresent(this.map.getContext().getLayerId());
 
         this.layerDropdown.addActionListener(e1 -> {
             this.map.getContext().setLayerId(this.layerDropdown.getSelected());
@@ -100,6 +106,14 @@ public class SettingsSidebar extends JPanel {
             }
         };
 
+        JCheckBox showExtraInfos = new JCheckBox("Show Extra infos") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                this.setSelected(SettingsSidebar.this.settings.showExtraInfos);
+                super.paintComponent(g);
+            }
+        };
+
         showBiomes.addItemListener(e -> {
             this.settings.showBiomes = showBiomes.isSelected();
             this.map.repaint();
@@ -115,11 +129,19 @@ public class SettingsSidebar extends JPanel {
             this.map.repaint();
         });
 
-        SwingUtils.addSet(this.toggles, showBiomes, showFeatures, showGrid);
+        showExtraInfos.addItemListener(e -> {
+            this.settings.showExtraInfos = showExtraInfos.isSelected();
+            this.map.repaint();
+        });
+
+        this.toggles.add(showBiomes);
+        this.toggles.add(showFeatures);
+        this.toggles.add(showGrid);
+        this.toggles.add(showExtraInfos);
     }
 
     private void addFeatureToggles() {
-        for(Feature<?, ?> feature: this.settings.getAllFeatures()) {
+        for (Feature<?, ?> feature : this.settings.getAllFeatures()) {
             FeatureEntry entry = new FeatureEntry(feature) {
                 @Override
                 public void paintComponent(Graphics g) {
@@ -140,7 +162,7 @@ public class SettingsSidebar extends JPanel {
     }
 
     private void addBiomeToggles() {
-        for(Biome biome: this.settings.getAllBiomes()) {
+        for (Biome biome : this.settings.getAllBiomes()) {
             BiomeEntry entry = new BiomeEntry(biome) {
                 @Override
                 public void paintComponent(Graphics g) {
@@ -169,9 +191,10 @@ public class SettingsSidebar extends JPanel {
             this.settings.getAllFeatures().forEach(this.settings::hide);
 
             Arrays.stream(this.toggles.getComponents()).filter(c -> c instanceof FeatureEntry)
-                    .map(c -> (FeatureEntry)c).forEach(c -> c.getCheckBox().setSelected(false));
+                    .map(c -> (FeatureEntry) c).forEach(c -> c.getCheckBox().setSelected(false));
             Arrays.stream(this.toggles.getComponents()).filter(c -> c instanceof BiomeEntry)
-                    .map(c -> (BiomeEntry)c).forEach(c -> c.getCheckBox().setSelected(false));
+                    .map(c -> (BiomeEntry) c).forEach(c -> c.getCheckBox().setSelected(false));
+            this.map.restart();
             this.map.repaint();
         }));
 
@@ -180,16 +203,19 @@ public class SettingsSidebar extends JPanel {
             this.settings.getAllFeatures().forEach(this.settings::show);
 
             Arrays.stream(this.toggles.getComponents()).filter(c -> c instanceof FeatureEntry)
-                    .map(c -> (FeatureEntry)c).forEach(c -> c.getCheckBox().setSelected(true));
+                    .map(c -> (FeatureEntry) c).forEach(c -> c.getCheckBox().setSelected(true));
             Arrays.stream(this.toggles.getComponents()).filter(c -> c instanceof BiomeEntry)
-                    .map(c -> (BiomeEntry)c).forEach(c -> c.getCheckBox().setSelected(true));
+                    .map(c -> (BiomeEntry) c).forEach(c -> c.getCheckBox().setSelected(true));
+            this.map.restart();
             this.map.repaint();
         }));
 
         JPanel duo = new JPanel();
         duo.add(showAll);
         duo.add(hideAll);
-        duo.setLayout(new BoxLayout(duo, BoxLayout.X_AXIS));
+        FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
+        layout.setVgap(0);
+        duo.setLayout(layout);
         this.add(duo);
     }
 
@@ -197,7 +223,9 @@ public class SettingsSidebar extends JPanel {
         JButton set = new JButton("Set as Default");
         JButton reset = new JButton("Reset to Default");
 
-        set.addMouseListener(Events.Mouse.onPressed(e -> Configs.USER_PROFILE.setDefaultSettings(this.map.getContext().dimension, this.settings)));
+        set.addMouseListener(Events.Mouse.onPressed(e -> {
+            Configs.USER_PROFILE.setDefaultSettings(this.map.getContext().dimension, this.settings);
+        }));
 
         reset.addMouseListener(Events.Mouse.onPressed(e -> {
             this.settings.set(Configs.USER_PROFILE.getMapSettingsCopy(this.map.getContext().version, this.map.getContext().dimension));
@@ -208,13 +236,22 @@ public class SettingsSidebar extends JPanel {
         JPanel duo = new JPanel();
         duo.add(set);
         duo.add(reset);
-        duo.setLayout(new BoxLayout(duo, BoxLayout.X_AXIS));
+        FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
+        layout.setVgap(0);
+        duo.setLayout(layout);
         this.add(duo);
     }
 
     private void addCloseButton() {
-        this.closeButton = new JButton("Close");
-        this.closeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(this.closeButton);
+        JPanel panel = new JPanel();
+
+        this.closeButton = new JButton("Close Settings");
+        panel.add(this.closeButton);
+
+        FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
+        panel.setLayout(layout);
+
+        this.add(panel);
     }
+
 }

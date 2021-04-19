@@ -1,27 +1,31 @@
 package kaptainwutax.minemap.feature;
 
 import kaptainwutax.featureutils.structure.Fortress;
-import kaptainwutax.seedutils.mc.Dimension;
-import kaptainwutax.seedutils.mc.MCVersion;
+import kaptainwutax.mcutils.state.Dimension;
+import kaptainwutax.mcutils.version.MCVersion;
 
 public class OWFortress extends Fortress {
 
-	public OWFortress(MCVersion version) {
-		super(version);
-	}
+    public OWFortress(MCVersion version) {
+        super(version);
+    }
 
-	public OWFortress(Config config, MCVersion version) {
-		super(config, version);
-	}
+    public OWFortress(Config config, MCVersion version) {
+        super(config, version);
+    }
 
-	@Override
-	public String getName() {
-		return "OW_fortress";
-	}
+    public static String name() {
+        return "OW_fortress";
+    }
 
-	@Override
-	public boolean isValidDimension(Dimension dimension) {
-		return dimension == Dimension.OVERWORLD;
-	}
+    @Override
+    public String getName() {
+        return name();
+    }
+
+    @Override
+    public boolean isValidDimension(Dimension dimension) {
+        return dimension == Dimension.OVERWORLD;
+    }
 
 }

@@ -3,12 +3,12 @@ import kaptainwutax.featureutils.structure.Mineshaft;
 import kaptainwutax.minemap.init.Configs;
 import kaptainwutax.minemap.init.Features;
 import kaptainwutax.minemap.init.Icons;
-import kaptainwutax.minemap.ui.DrawInfo;
+import kaptainwutax.minemap.util.data.DrawInfo;
 import kaptainwutax.minemap.ui.map.MapContext;
 import kaptainwutax.minemap.ui.map.MapSettings;
 import kaptainwutax.minemap.ui.map.fragment.Fragment;
-import kaptainwutax.seedutils.mc.Dimension;
-import kaptainwutax.seedutils.mc.MCVersion;
+import kaptainwutax.mcutils.state.Dimension;
+import kaptainwutax.mcutils.version.MCVersion;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,7 +23,7 @@ public class Test {
         Configs.registerConfigs();
         Icons.registerIcons();
 
-        MapSettings settings = new MapSettings(MCVersion.v1_16, Dimension.OVERWORLD).refresh();
+        MapSettings settings = new MapSettings(MCVersion.v1_12, Dimension.OVERWORLD).refresh();
         MapContext context = new MapContext(1234L, settings);
 
         settings.hide(SlimeChunk.class, Mineshaft.class);

@@ -1,18 +1,34 @@
 package kaptainwutax.minemap.config;
 
 import com.google.gson.annotations.Expose;
-import kaptainwutax.seedutils.util.math.DistanceMetric;
+import kaptainwutax.mcutils.util.math.DistanceMetric;
+import kaptainwutax.minemap.MineMap;
+import kaptainwutax.minemap.ui.map.MapManager;
 
 public class UserSettings {
 
-    @Expose public String style = BiomeColorsConfig.DEFAULT_STYLE_NAME;
-    @Expose public boolean restrictMaximumZoom = true;
-    @Expose public String fragmentMetric = "Euclidean";
+    @Expose
+    public String style = BiomeColorsConfig.DEFAULT_STYLE_NAME;
+    @Expose
+    public MineMap.LookType look = MineMap.LookType.DARCULA;
+    @Expose
+    public boolean restrictMaximumZoom = true;
+    @Expose
+    public String fragmentMetric = "Euclidean";
+    @Expose
+    public boolean structureMode = false;
+    @Expose
+    public MapManager.ModifierDown modifierDown = MapManager.ModifierDown.CTRL_DOWN;
 
     public DistanceMetric getFragmentMetric() {
-        if(this.fragmentMetric.equals("Euclidean"))return DistanceMetric.EUCLIDEAN_SQ;
-        else if(this.fragmentMetric.equals("Manhattan"))return DistanceMetric.MANHATTAN;
-        else if(this.fragmentMetric.equals("Chebyshev"))return DistanceMetric.CHEBYSHEV;
+        switch (this.fragmentMetric) {
+            case "Euclidean":
+                return DistanceMetric.EUCLIDEAN_SQ;
+            case "Manhattan":
+                return DistanceMetric.MANHATTAN;
+            case "Chebyshev":
+                return DistanceMetric.CHEBYSHEV;
+        }
         return null;
     }
 

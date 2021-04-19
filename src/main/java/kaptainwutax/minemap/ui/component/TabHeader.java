@@ -1,10 +1,9 @@
 package kaptainwutax.minemap.ui.component;
 
-
-import wearblackallday.swing.Events;
+import kaptainwutax.minemap.listener.Events;
+import kaptainwutax.minemap.util.ui.buttons.CloseButton;
 
 import javax.swing.*;
-import javax.swing.plaf.metal.MetalIconFactory;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
@@ -19,6 +18,7 @@ public class TabHeader extends JPanel {
         this.createTabTitle(title);
         this.createCloseButton(onClose);
         this.setOpaque(false);
+
     }
 
     public boolean isPinned() {
@@ -50,7 +50,7 @@ public class TabHeader extends JPanel {
     }
 
     protected void createCloseButton(Consumer<MouseEvent> onClose) {
-        this.closeButton = new JButton(MetalIconFactory.getInternalFrameCloseIcon(14));
+        this.closeButton = new CloseButton(12, 5, 1.5F);
         this.closeButton.addMouseListener(Events.Mouse.onPressed(onClose));
         this.add(this.closeButton);
     }

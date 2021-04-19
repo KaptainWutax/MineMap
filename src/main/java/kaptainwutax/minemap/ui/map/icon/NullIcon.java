@@ -1,9 +1,9 @@
 package kaptainwutax.minemap.ui.map.icon;
 
 import kaptainwutax.featureutils.Feature;
-import kaptainwutax.minemap.ui.DrawInfo;
 import kaptainwutax.minemap.ui.map.fragment.Fragment;
-import kaptainwutax.seedutils.mc.pos.BPos;
+import kaptainwutax.minemap.util.data.DrawInfo;
+import kaptainwutax.mcutils.util.pos.BPos;
 
 import java.awt.*;
 import java.util.List;
@@ -32,7 +32,7 @@ public class NullIcon extends IconRenderer {
     }
 
     @Override
-    public boolean isHovered(Fragment fragment, BPos hoveredPos, BPos featurePos, int width, int height) {
+    public boolean isHovered(Fragment fragment, BPos hoveredPos, BPos featurePos, int width, int height, Feature<?, ?> feature) {
         return false;
     }
 

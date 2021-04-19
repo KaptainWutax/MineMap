@@ -6,7 +6,7 @@ import kaptainwutax.featureutils.Feature;
 import kaptainwutax.minemap.feature.SpawnPoint;
 import kaptainwutax.minemap.ui.map.MapContext;
 import kaptainwutax.minemap.ui.map.fragment.Fragment;
-import kaptainwutax.seedutils.mc.pos.BPos;
+import kaptainwutax.mcutils.util.pos.BPos;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class SpawnIcon extends StaticIcon {
     public SpawnIcon(MapContext context) {
         super(context);
         BiomeSource source = this.getContext().getBiomeSource();
-        this.pos = source instanceof OverworldBiomeSource ? ((OverworldBiomeSource)source).getSpawnPoint() : null;
+        this.pos = source instanceof OverworldBiomeSource ? ((OverworldBiomeSource) source).getSpawnPoint() : null;
     }
 
     public BPos getPos() {
@@ -31,7 +31,7 @@ public class SpawnIcon extends StaticIcon {
 
     @Override
     public void addPositions(Feature<?, ?> feature, Fragment fragment, List<BPos> positions) {
-        if(this.getPos() != null) {
+        if (this.getPos() != null) {
             positions.add(this.getPos());
         }
     }

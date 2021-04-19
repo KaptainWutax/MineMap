@@ -3,9 +3,9 @@ package kaptainwutax.minemap.ui.map.sidebar;
 import kaptainwutax.biomeutils.Biome;
 import kaptainwutax.biomeutils.layer.BiomeLayer;
 import kaptainwutax.minemap.ui.map.MapPanel;
-import kaptainwutax.minemap.util.Str;
-import kaptainwutax.seedutils.mc.pos.BPos;
-import kaptainwutax.seedutils.mc.pos.RPos;
+import kaptainwutax.minemap.util.data.Str;
+import kaptainwutax.mcutils.util.pos.BPos;
+import kaptainwutax.mcutils.util.pos.RPos;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,9 +14,8 @@ import java.awt.*;
 public class TooltipSidebar extends JPanel {
 
     private final MapPanel map;
-
-    private JLabel biomeDisplay;
     public TooltipPanel tooltip;
+    private JLabel biomeDisplay;
 
     public TooltipSidebar(MapPanel map) {
         this.map = map;
@@ -24,6 +23,13 @@ public class TooltipSidebar extends JPanel {
         this.addTooltip();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(0, 0, 0, 0));
+        this.setOpaque(false);
+    }
+
+    public static int getBiome(MapPanel map, int blockX, int blockZ) {
+        BiomeLayer layer = map.getContext().getBiomeLayer();
+        RPos pos = new BPos(blockX, 0, blockZ).toRegionPos(layer.getScale());
+        return layer.get(pos.getX(), 0, pos.getZ());
     }
 
     private void addBiomeDisplay() {
@@ -42,24 +48,21 @@ public class TooltipSidebar extends JPanel {
 
     private void addTooltip() {
         this.tooltip = new TooltipPanel(this.map);
+
+        this.tooltip.setFocusable(false);
+        this.tooltip.setOpaque(false);
         this.tooltip.setBorder(new EmptyBorder(5, 0, 5, 0));
         this.add(this.tooltip);
     }
 
     public void updateBiomeDisplay(int blockX, int blockZ) {
-        int biomeId = this.getBiome(blockX, blockZ);
+        int biomeId = getBiome(this.map, blockX, blockZ);
         Biome biome = Biome.REGISTRY.get(biomeId);
         String name = biome == null ? "Unknown" : Str.formatName(biome.getName());
 
         String text = String.format("[%d, %d] %s - ID %d (0x%s)", blockX, blockZ, name,
                 biomeId, Integer.toHexString(biomeId).toUpperCase());
         this.biomeDisplay.setText(text);
-    }
-
-    private int getBiome(int blockX, int blockZ) {
-        BiomeLayer layer = this.map.getContext().getBiomeLayer();
-        RPos pos = new BPos(blockX, 0, blockZ).toRegionPos(layer.getScale());
-        return layer.get(pos.getX(), 0, pos.getZ());
     }
 
 }

@@ -1,10 +1,10 @@
 package kaptainwutax.minemap.ui.map;
 
 import kaptainwutax.featureutils.Feature;
-import kaptainwutax.minemap.ui.DrawInfo;
 import kaptainwutax.minemap.ui.map.fragment.Fragment;
 import kaptainwutax.minemap.ui.map.icon.*;
-import kaptainwutax.seedutils.mc.pos.BPos;
+import kaptainwutax.minemap.util.data.DrawInfo;
+import kaptainwutax.mcutils.util.pos.BPos;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,8 +25,14 @@ public class IconManager {
                 .collect(Collectors.toMap(f -> f, f -> NullIcon.INSTANCE));
 
         this.override(
-                SpawnIcon::new, RegionIcon::new, MineshaftIcon::new, SlimeIcon::new,
-                EndGatewayIcon::new, OWNetherIcon::new, StrongholdIcon::new
+                SpawnIcon::new,
+                RegionIcon::new,
+                MineshaftIcon::new,
+                SlimeIcon::new,
+                EndGatewayIcon::new,
+                OWNetherIcon::new,
+                NEOverworldIcon::new,
+                c -> new StrongholdIcon(c, 128)
         );
     }
 
@@ -48,15 +54,13 @@ public class IconManager {
 
     @SafeVarargs
     public final IconManager override(Function<MapContext, IconRenderer>... renderers) {
-        for(Function<MapContext, IconRenderer> factory: renderers) {
+        for (Function<MapContext, IconRenderer> factory : renderers) {
             IconRenderer renderer = factory.apply(this.getContext());
-
-            for(Feature<?, ?> feature: new ArrayList<>(this.renderers.keySet())) {
-                if(!renderer.isValidFeature(feature))continue;
+            for (Feature<?, ?> feature : new ArrayList<>(this.renderers.keySet())) {
+                if (!renderer.isValidFeature(feature)) continue;
                 this.renderers.replace(feature, renderer);
             }
         }
-
         return this;
     }
 

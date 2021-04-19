@@ -3,20 +3,23 @@ package kaptainwutax.minemap.feature;
 import kaptainwutax.biomeutils.source.BiomeSource;
 import kaptainwutax.biomeutils.source.OverworldBiomeSource;
 import kaptainwutax.featureutils.Feature;
-import kaptainwutax.seedutils.mc.ChunkRand;
-import kaptainwutax.seedutils.mc.Dimension;
-import kaptainwutax.seedutils.mc.MCVersion;
-import kaptainwutax.seedutils.mc.pos.BPos;
+import kaptainwutax.mcutils.rand.ChunkRand;
+import kaptainwutax.mcutils.state.Dimension;
+import kaptainwutax.mcutils.util.pos.BPos;
 
 public class SpawnPoint extends Feature<Feature.Config, SpawnPoint.Data> {
 
-    public SpawnPoint(MCVersion version) {
-        super(new Config(), version);
+    public SpawnPoint() {
+        super(new Config(), null);
+    }
+
+    public static String name() {
+        return "spawn";
     }
 
     @Override
     public String getName() {
-        return "spawn";
+        return name();
     }
 
     @Override
@@ -26,8 +29,8 @@ public class SpawnPoint extends Feature<Feature.Config, SpawnPoint.Data> {
 
     @Override
     public boolean canSpawn(SpawnPoint.Data data, BiomeSource source) {
-        if(source instanceof OverworldBiomeSource) {
-            BPos spawn = ((OverworldBiomeSource)source).getSpawnPoint();
+        if (source instanceof OverworldBiomeSource) {
+            BPos spawn = ((OverworldBiomeSource) source).getSpawnPoint();
             return data.blockX == spawn.getX() && data.blockZ == spawn.getZ();
         }
 
@@ -40,7 +43,7 @@ public class SpawnPoint extends Feature<Feature.Config, SpawnPoint.Data> {
     }
 
     public BPos get(BiomeSource source) {
-        return source instanceof OverworldBiomeSource ? ((OverworldBiomeSource)source).getSpawnPoint() : null;
+        return source instanceof OverworldBiomeSource ? ((OverworldBiomeSource) source).getSpawnPoint() : null;
     }
 
     public static class Data extends Feature.Data<SpawnPoint> {
