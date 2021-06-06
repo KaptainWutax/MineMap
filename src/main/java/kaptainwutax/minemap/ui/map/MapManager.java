@@ -13,15 +13,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MapManager {
-
     public static final int DEFAULT_REGION_SIZE = 512;
 
     private final MapPanel panel;
     public final int blocksPerFragment;
     public double pixelsPerFragment;
 
-    public double centerX;
-    public double centerY;
+    public double centerX, centerY;
 
     public Point mousePointer;
 
@@ -114,18 +112,18 @@ public class MapManager {
         pin.setBorder(new EmptyBorder(5, 15, 5, 15));
 
         pin.addMouseListener(Events.Mouse.onReleased(e -> {
-            boolean newState = !MineMap.WORLD_TABS.getSelectedHeader().isPinned();
-            MineMap.WORLD_TABS.getSelectedHeader().setPinned(newState);
+            boolean newState = !this.mineMap().worldTabs.getSelectedHeader().isPinned();
+            this.mineMap().worldTabs.getSelectedHeader().setPinned(newState);
             pin.setText(newState ? "Unpin" : "Pin");
         }));
 
         JMenuItem rename = new JMenuItem("Rename");
-        rename.setBorder(new EmptyBorder(5, 15, 5, 15));
+        rename.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
-        rename.addMouseListener(Events.Mouse.onReleased(e -> MineMap.RENAME_TAB_DIALOG.setVisible(true)));
+        rename.addMouseListener(Events.Mouse.onReleased(e -> this.mineMap().renameTabDialog.setVisible(true)));
 
         JMenuItem settings = new JMenuItem("Settings");
-        settings.setBorder(new EmptyBorder(5, 15, 5, 15));
+        settings.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
         settings.addMouseListener(Events.Mouse.onReleased(e -> {
             this.panel.displayBar.tooltip.setVisible(false);
@@ -164,5 +162,9 @@ public class MapManager {
         int xi = (int)Math.round(x);
         int yi = (int)Math.round(y);
         return new BPos(xi, 0, yi);
+    }
+
+    private MineMap mineMap() {
+        return (MineMap)SwingUtilities.getWindowAncestor(this.panel);
     }
 }

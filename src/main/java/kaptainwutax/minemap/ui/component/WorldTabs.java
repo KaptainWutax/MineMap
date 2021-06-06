@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class WorldTabs extends JTabbedPane {
-
     protected final List<TabGroup> tabGroups = new ArrayList<>();
 
     public WorldTabs() {

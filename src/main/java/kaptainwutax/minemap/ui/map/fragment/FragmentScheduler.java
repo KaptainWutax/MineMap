@@ -5,7 +5,7 @@ import kaptainwutax.minemap.ui.DrawInfo;
 import kaptainwutax.minemap.ui.map.MapPanel;
 import kaptainwutax.seedutils.mc.pos.BPos;
 import kaptainwutax.seedutils.mc.pos.RPos;
-import wearblackallday.threading.ThreadPool;
+import wearblackallday.util.ThreadPool;
 
 import javax.swing.*;
 import java.awt.*;

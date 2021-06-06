@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapPanel extends JPanel {
-
 	public final MapContext context;
 	public final MapManager manager;
 	public final MapSideBar displayBar;
