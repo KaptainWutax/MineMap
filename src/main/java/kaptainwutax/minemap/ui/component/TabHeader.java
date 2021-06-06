@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
 
 public class TabHeader extends JPanel {
-
     protected JLabel tabTitle;
     protected JButton closeButton;
 
@@ -54,5 +53,4 @@ public class TabHeader extends JPanel {
         this.closeButton.addMouseListener(Events.Mouse.onPressed(onClose));
         this.add(this.closeButton);
     }
-
 }

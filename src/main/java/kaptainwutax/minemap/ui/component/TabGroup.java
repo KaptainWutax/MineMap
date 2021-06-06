@@ -14,14 +14,9 @@ public class TabGroup {
 	protected Map<Dimension, MapPanel> mapPanels = new LinkedHashMap<>();
 
 	public TabGroup(MCVersion version, String worldSeed, int threadCount) {
-		this(version, worldSeed, threadCount, Arrays.asList(Dimension.values()));
+		this(version, worldSeed, threadCount, Dimension.values());
 	}
-
-	public TabGroup(MCVersion version, String worldSeed, int threadCount, Dimension... dimensions) {
-		this(version, worldSeed, threadCount, Arrays.asList(dimensions));
-	}
-
-	public TabGroup(MCVersion version, String worldSeed, int threadCount, Collection<Dimension> dimensions) {
+	public TabGroup(MCVersion version, String worldSeed, int threadCount, Dimension[] dimensions) {
 		this.version = version;
 
 		if(worldSeed.isEmpty()) {
@@ -48,12 +43,11 @@ public class TabGroup {
 		return this.mapPanels.values();
 	}
 
-	private void loadSeed(long worldSeed, int threadCount, Collection<Dimension> dimensions) {
+	private void loadSeed(long worldSeed, int threadCount, Dimension[] dimensions) {
 		this.worldSeed = worldSeed;
 
 		for(Dimension dimension : dimensions) {
-			MapPanel mapPanel = new MapPanel(this.getVersion(), dimension, this.worldSeed, threadCount);
-			this.mapPanels.put(dimension, mapPanel);
+			this.mapPanels.put(dimension, new MapPanel(this.getVersion(), dimension, this.worldSeed, threadCount));
 		}
 	}
 

@@ -58,9 +58,10 @@ public class MapPanel extends JPanel {
 	}
 
 	public void drawMap(Graphics graphics) {
-		Map<Fragment, DrawInfo> drawQueue = this.getDrawQueue();
-		drawQueue.forEach((fragment, info) -> fragment.drawBiomes(graphics, info));
-		drawQueue.forEach((fragment, info) -> fragment.drawFeatures(graphics, info));
+		this.getDrawQueue().forEach(((fragment, info) -> {
+			fragment.drawBiomes(graphics, info);
+			fragment.drawFeatures(graphics, info);
+		}));
 	}
 
 	public void drawCrossHair(Graphics graphics) {

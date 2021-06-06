@@ -9,3 +9,4 @@ screenshots/
 bin/
 
 .DS_Store
+out/

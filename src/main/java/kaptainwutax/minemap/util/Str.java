@@ -1,7 +1,6 @@
 package kaptainwutax.minemap.util;
 
 public final class Str {
-
     public static String formatName(String name) {
         char[] chars = name.toCharArray();
         chars[0] = Character.toUpperCase(chars[0]);
@@ -15,5 +14,4 @@ public final class Str {
 
         return new String(chars);
     }
-
 }

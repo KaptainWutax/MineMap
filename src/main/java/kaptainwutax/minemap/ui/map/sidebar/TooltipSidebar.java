@@ -12,7 +12,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class TooltipSidebar extends JPanel {
-
     private final MapPanel map;
 
     private JLabel biomeDisplay;
@@ -61,5 +60,4 @@ public class TooltipSidebar extends JPanel {
         RPos pos = new BPos(blockX, 0, blockZ).toRegionPos(layer.getScale());
         return layer.get(pos.getX(), 0, pos.getZ());
     }
-
 }

@@ -1,4 +1,4 @@
-package kaptainwutax.minemap.ui.dialog;
+package kaptainwutax.minemap.ui.component;
 
 import kaptainwutax.minemap.MineMap;
 import kaptainwutax.minemap.init.Configs;
@@ -95,8 +95,7 @@ public abstract class Dialog extends JDialog {
 			SelectionBox<MCVersion> versionSelection =
 				new SelectionBox<>(Arrays.stream(MCVersion.values()).filter(v -> v.isNewerOrEqualTo(MCVersion.v1_8)));
 			this.setContentPane(this.content = new LPanel()
-				.withLayout(new GridLayout(3, 1))
-				.defaultSize(80, 30)
+				.withLayout(new GridLayout(3, 0))
 				.addTextField("Enter your seed here", "seed")
 				.addComponent(threadSelection)
 				.addComponent(versionSelection));

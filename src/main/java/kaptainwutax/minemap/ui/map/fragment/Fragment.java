@@ -73,13 +73,13 @@ public class Fragment {
         this.refreshImageCache();
 
         if(this.imageCache != null && this.context.getSettings().showBiomes) {
-            graphics.drawImage(this.imageCache, info.x, info.y, info.width, info.height, null);
+            graphics.drawImage(this.imageCache, info.x(), info.y(), info.width(), info.height(), null);
         }
 
         if(this.context.getSettings().showGrid) {
             Color old = graphics.getColor();
             graphics.setColor(Color.BLACK);
-            graphics.drawRect(info.x, info.y, info.width - 1, info.height - 1);
+            graphics.drawRect(info.x(), info.y(), info.width() - 1, info.height() - 1);
             graphics.setColor(old);
         }
     }
@@ -87,7 +87,7 @@ public class Fragment {
     public void drawFeatures(Graphics graphics, DrawInfo info) {
         if(!this.context.getSettings().showFeatures)return;
 
-        Map<Feature<?, ?>, List<BPos>> hovered = this.getHoveredFeatures(info.width, info.height);
+        Map<Feature<?, ?>, List<BPos>> hovered = this.getHoveredFeatures(info.width(), info.height());
 
         for(Map.Entry<Feature<?, ?>, List<BPos>> entry: this.features.entrySet()) {
             if(!this.context.getSettings().isActive(entry.getKey()) || entry.getValue() == null)continue;
@@ -98,7 +98,7 @@ public class Fragment {
             }
         }
 
-        this.getHoveredFeatures(info.width, info.height).forEach((feature, positions) -> {
+        this.getHoveredFeatures(info.width(), info.height()).forEach((feature, positions) -> {
             if(!this.context.getSettings().isActive(feature) || positions == null)return;
 
             for(BPos pos: positions) {

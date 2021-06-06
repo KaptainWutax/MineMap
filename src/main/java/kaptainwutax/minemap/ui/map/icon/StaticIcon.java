@@ -30,9 +30,9 @@ public abstract class StaticIcon extends IconRenderer {
     @Override
     public void render(Graphics graphics, DrawInfo info, Feature<?, ?> feature, Fragment fragment, BPos pos, boolean hovered) {
         float size = hovered ? this.iconSize * this.getHoverScaleFactor() : this.iconSize;
-        int sx = (int)((double)(pos.getX() - fragment.getX()) / fragment.getSize() * info.width - size / 2.0F);
-        int sy = (int)((double)(pos.getZ() - fragment.getZ()) / fragment.getSize() * info.height - size / 2.0F);
-        graphics.drawImage(Icons.REGISTRY.get(feature.getClass()), info.x + sx, info.y + sy,
+        int sx = (int)((double)(pos.getX() - fragment.getX()) / fragment.getSize() * info.width() - size / 2.0F);
+        int sy = (int)((double)(pos.getZ() - fragment.getZ()) / fragment.getSize() * info.height() - size / 2.0F);
+        graphics.drawImage(Icons.REGISTRY.get(feature.getClass()), info.x() + sx, info.y() + sy,
                 (int)size, (int)size, null);
     }
 

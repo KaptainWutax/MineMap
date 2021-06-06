@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BiomeEntry extends JPanel {
-
     private final JCheckBox checkBox;
 
     public BiomeEntry(Biome biome) {
@@ -37,5 +36,4 @@ public class BiomeEntry extends JPanel {
     public JCheckBox getCheckBox() {
         return this.checkBox;
     }
-
 }

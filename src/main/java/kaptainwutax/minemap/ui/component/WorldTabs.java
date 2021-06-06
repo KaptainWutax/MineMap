@@ -28,7 +28,7 @@ public class WorldTabs extends JTabbedPane {
         });
     }
 
-    public void load(MCVersion version, String worldSeed, int threadCount, Collection<Dimension> dimensions) {
+    public void load(MCVersion version, String worldSeed, int threadCount, Dimension[] dimensions) {
         TabGroup tabGroup = new TabGroup(version, worldSeed, threadCount, dimensions);
         this.tabGroups.add(tabGroup);
         tabGroup.add(this);

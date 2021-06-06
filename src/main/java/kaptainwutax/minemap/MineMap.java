@@ -5,8 +5,9 @@ import kaptainwutax.minemap.init.Configs;
 import kaptainwutax.minemap.init.Features;
 import kaptainwutax.minemap.init.Icons;
 import kaptainwutax.minemap.ui.component.WorldTabs;
-import kaptainwutax.minemap.ui.dialog.Dialog;
+import kaptainwutax.minemap.ui.component.Dialog;
 import kaptainwutax.minemap.ui.map.MapPanel;
+import kaptainwutax.seedutils.mc.Dimension;
 import kaptainwutax.seedutils.mc.seed.WorldSeed;
 import wearblackallday.swing.Events;
 import wearblackallday.swing.components.LMenuBar;
@@ -22,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 
 public class MineMap extends JFrame {
 	public final WorldTabs worldTabs = new WorldTabs();
@@ -72,7 +72,7 @@ public class MineMap extends JFrame {
 						this.worldTabs.load(
 							map.getContext().version,
 							String.valueOf(WorldSeed.getShadowSeed(map.getContext().worldSeed)),
-							map.threadCount, Collections.singletonList(map.getContext().dimension));
+							map.threadCount, new Dimension[]{map.getContext().dimension});
 					}))
 				.withItem("Change Salts", (menu, item, event) ->
 					SwingUtilities.invokeLater(() -> this.saltDialog.setVisible(true)))

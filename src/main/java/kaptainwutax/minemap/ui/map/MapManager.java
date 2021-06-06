@@ -17,10 +17,7 @@ public class MapManager {
 
     private final MapPanel panel;
     public final int blocksPerFragment;
-    public double pixelsPerFragment;
-
-    public double centerX, centerY;
-
+    public double pixelsPerFragment, centerX, centerY;
     public Point mousePointer;
 
     public MapManager(MapPanel panel) {
@@ -155,8 +152,8 @@ public class MapManager {
         Vec3i screenSize = this.getScreenSize();
         double x = (mouseX - screenSize.getX() / 2.0D - this.centerX) / screenSize.getX();
         double y = (mouseY - screenSize.getZ() / 2.0D - this.centerY) / screenSize.getZ();
-        double blocksPerWidth = (screenSize.getX() / this.pixelsPerFragment) * (double)this.blocksPerFragment;
-        double blocksPerHeight = (screenSize.getZ() / this.pixelsPerFragment) * (double)this.blocksPerFragment;
+        double blocksPerWidth = screenSize.getX() / this.pixelsPerFragment * (double)this.blocksPerFragment;
+        double blocksPerHeight = screenSize.getZ() / this.pixelsPerFragment * (double)this.blocksPerFragment;
         x *= blocksPerWidth;
         y *= blocksPerHeight;
         int xi = (int)Math.round(x);
