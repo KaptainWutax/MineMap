@@ -28,5 +28,4 @@ public abstract class DynamicIcon extends IconRenderer {
         graphics.drawImage(Icons.REGISTRY.get(feature.getClass()), info.x() + sx, info.y() + sy,
                 (int)iconWidth + 1, (int)iconHeight + 1, null);
     }
-
 }

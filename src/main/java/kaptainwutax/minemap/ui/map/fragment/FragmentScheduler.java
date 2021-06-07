@@ -17,7 +17,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 public class FragmentScheduler {
-
 	public static Fragment LOADING_FRAGMENT = new Fragment(0, 0, 0, null) {
 		@Override public void drawBiomes(Graphics graphics, DrawInfo info) { }
 		@Override public void drawFeatures(Graphics graphics, DrawInfo info) { }
@@ -43,7 +42,8 @@ public class FragmentScheduler {
 					try {Thread.sleep(20);}
 					catch(InterruptedException e) {e.printStackTrace();}
 					continue;
-				} else if(!this.isInBounds(nearest)) {
+				}
+				if(!this.isInBounds(nearest)) {
 					this.fragments.remove(nearest);
 					this.scheduledRegions.remove(nearest);
 					continue;
@@ -53,12 +53,10 @@ public class FragmentScheduler {
 
 				try {
 					this.executor.execute(() -> {
-						Fragment fragment = new Fragment(nearest, this.listener.getContext());
-						this.fragments.put(nearest, fragment);
+						this.fragments.put(nearest, new Fragment(nearest, this.listener.getContext()));
 						SwingUtilities.invokeLater(() -> this.listener.repaint());
 					});
 				} catch(RejectedExecutionException ignored) {
-
 				}
 
 				this.executor.awaitFreeThread();

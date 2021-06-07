@@ -16,7 +16,7 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.6"
     implementation "com.formdev:flatlaf:0.38"
     implementation "com.formdev:flatlaf-intellij-themes:1.1.2"
-    implementation "com.github.wearblackallday:JavaUtils:27fd1b8069a2b9dbcfb3d6aeab018b10f7cd9b87"
+    implementation "com.github.wearblackallday:JavaUtils:1b369d41cd"
 }
 
 application {

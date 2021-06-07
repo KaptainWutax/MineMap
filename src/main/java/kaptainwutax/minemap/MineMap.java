@@ -4,8 +4,8 @@ import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import kaptainwutax.minemap.init.Configs;
 import kaptainwutax.minemap.init.Features;
 import kaptainwutax.minemap.init.Icons;
-import kaptainwutax.minemap.ui.component.WorldTabs;
 import kaptainwutax.minemap.ui.component.Dialog;
+import kaptainwutax.minemap.ui.component.WorldTabs;
 import kaptainwutax.minemap.ui.map.MapPanel;
 import kaptainwutax.seedutils.mc.Dimension;
 import kaptainwutax.seedutils.mc.seed.WorldSeed;
@@ -64,23 +64,22 @@ public class MineMap extends JFrame {
 					}
 				}))
 			.addMenu("World", lMenu -> lMenu
-				.withItem("Go to Coordinates", (menu, item, event) ->
+				.withItem("Go to Coordinates", () ->
 					SwingUtilities.invokeLater(() -> this.coordHopperDialogue.setVisible(true)))
-				.withItem("Load Shadow Seed", (menu, item, event) ->
-					SwingUtilities.invokeLater(() -> {
-						MapPanel map = this.worldTabs.getSelectedMapPanel();
-						this.worldTabs.load(
-							map.getContext().version,
-							String.valueOf(WorldSeed.getShadowSeed(map.getContext().worldSeed)),
-							map.threadCount, new Dimension[]{map.getContext().dimension});
-					}))
-				.withItem("Change Salts", (menu, item, event) ->
+				.withItem("Load Shadow Seed", () -> SwingUtilities.invokeLater(() -> {
+					MapPanel map = this.worldTabs.getSelectedMapPanel();
+					this.worldTabs.load(
+						map.getContext().version,
+						String.valueOf(WorldSeed.getShadowSeed(map.getContext().worldSeed)),
+						map.threadCount, new Dimension[]{map.getContext().dimension});
+				}))
+				.withItem("Change Salts", () ->
 					SwingUtilities.invokeLater(() -> this.saltDialog.setVisible(true)))
 				.addMenuListener(Events.Menu.onSelected(e -> {
 					for(Component c : lMenu.getMenuComponents()) {
 						c.setEnabled(this.worldTabs.getSelectedMapPanel() != null);
 					}
-					})))
+				})))
 			.addMenu("Settings", lMenu -> lMenu
 				.subMenu("Style", styleMenu -> {
 					ButtonGroup buttonGroup = new ButtonGroup();
@@ -118,7 +117,7 @@ public class MineMap extends JFrame {
 			Configs.USER_PROFILE.getUserSettings().fragmentMetric = radiobutton.getText();
 			Configs.USER_PROFILE.flush();
 			MapPanel map = this.worldTabs.getSelectedMapPanel();
-			if (map != null) map.scheduler.scheduledModified.set(true);
+			if(map != null) map.scheduler.scheduledModified.set(true);
 		};
 	}
 }

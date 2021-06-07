@@ -17,10 +17,7 @@ import java.util.List;
 import java.util.*;
 
 public class Fragment {
-
-    private final int blockX;
-    private final int blockZ;
-    private final int regionSize;
+    private final int blockX, blockZ, regionSize;
     private final MapContext context;
 
     private int layerIdCache;
@@ -181,7 +178,7 @@ public class Fragment {
         this.features = new LinkedHashMap<>();
         IconManager iconManager = this.context.getIconManager();
 
-        for(Feature<?, ?> feature: this.context.getSettings().getAllFeatures(iconManager.getZValueSorter())) {
+        for(Feature<?, ?> feature : this.context.getSettings().getAllFeatures(iconManager.getZValueSorter())) {
             List<BPos> positions = iconManager.getPositions(feature, this);
             positions.removeIf(pos -> !this.isPosInFragment(pos));
             this.features.put(feature, positions);
